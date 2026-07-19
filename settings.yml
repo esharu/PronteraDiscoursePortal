@@ -22,6 +22,28 @@ hero_subtitle:
   default: "Databases, guides and the community — for every Ragnarok Online server we cover. Pick your world below or jump into the forum."
   description: "Supporting hero paragraph."
 
+hero_emblem:
+  type: bool
+  default: true
+  description: "Show the Prontera emblem above the hero title."
+
+hero_cta_label:
+  type: string
+  default: "Enter the forum"
+  description: "Primary hero button label. Leave empty to hide it."
+hero_cta_url:
+  type: string
+  default: "/latest"
+  description: "Primary hero button link."
+hero_cta_secondary_label:
+  type: string
+  default: "Browse categories"
+  description: "Secondary hero button label. Leave empty to hide it."
+hero_cta_secondary_url:
+  type: string
+  default: "/categories"
+  description: "Secondary hero button link."
+
 ro3_enabled:
   type: bool
   default: true
