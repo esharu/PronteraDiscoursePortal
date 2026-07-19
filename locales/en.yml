@@ -1,0 +1,16 @@
+en:
+  theme_metadata:
+    description: "Homepage hero and RO3 / ROZ instance cards for the Prontera root domain. Install as a component of the Prontera theme."
+    settings:
+      portal_enabled: "Render the portal hero and instance cards at the top of the homepage."
+      hero_eyebrow: "Small uppercase kicker above the hero title."
+      hero_title: "Main hero headline (Cinzel)."
+      hero_subtitle: "Supporting hero paragraph."
+      ro3_enabled: "Show the RO3 instance card."
+      ro3_name: "RO3 card title."
+      ro3_tagline: "RO3 card subline."
+      ro3_url: "RO3 hub URL."
+      roz_enabled: "Show the ROZ instance card."
+      roz_name: "ROZ card title."
+      roz_tagline: "ROZ card subline."
+      roz_url: "ROZ hub URL."

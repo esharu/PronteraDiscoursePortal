@@ -1,0 +1,57 @@
+# Prontera Portal — homepage hero + instance cards for the root domain
+# (prontera.info). Install this as a component of the "Prontera" theme.
+# All copy and links are editable here so the maintainer never edits code.
+
+portal_enabled:
+  type: bool
+  default: true
+  description: "Render the portal hero and instance cards at the top of the homepage."
+
+hero_eyebrow:
+  type: string
+  default: "Prontera · Community Hub"
+  description: "Small uppercase kicker above the hero title."
+
+hero_title:
+  type: string
+  default: "Ragnarok Online, home base."
+  description: "Main hero headline (Cinzel)."
+
+hero_subtitle:
+  type: string
+  default: "Databases, guides and the community — for every Ragnarok Online server we cover. Pick your world below or jump into the forum."
+  description: "Supporting hero paragraph."
+
+ro3_enabled:
+  type: bool
+  default: true
+  description: "Show the RO3 instance card."
+ro3_name:
+  type: string
+  default: "RO3 Hub"
+  description: "RO3 card title."
+ro3_tagline:
+  type: string
+  default: "Ragnarok Online 3"
+  description: "RO3 card subline."
+ro3_url:
+  type: string
+  default: "https://ro3.prontera.info"
+  description: "RO3 hub URL."
+
+roz_enabled:
+  type: bool
+  default: true
+  description: "Show the ROZ instance card."
+roz_name:
+  type: string
+  default: "RO Zero Hub"
+  description: "ROZ card title."
+roz_tagline:
+  type: string
+  default: "Ragnarok Online Zero"
+  description: "ROZ card subline."
+roz_url:
+  type: string
+  default: "https://roz.prontera.info"
+  description: "ROZ hub URL."

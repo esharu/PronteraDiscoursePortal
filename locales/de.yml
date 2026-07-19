@@ -1,0 +1,16 @@
+de:
+  theme_metadata:
+    description: "Startseiten-Hero und RO3-/ROZ-Instanz-Karten für die Prontera-Root-Domain. Als Component des Prontera-Themes installieren."
+    settings:
+      portal_enabled: "Rendert Portal-Hero und Instanz-Karten oben auf der Startseite."
+      hero_eyebrow: "Kleine Versalien-Zeile über dem Hero-Titel."
+      hero_title: "Haupt-Headline des Hero (Cinzel)."
+      hero_subtitle: "Begleitender Hero-Absatz."
+      ro3_enabled: "RO3-Instanz-Karte anzeigen."
+      ro3_name: "Titel der RO3-Karte."
+      ro3_tagline: "Unterzeile der RO3-Karte."
+      ro3_url: "URL des RO3-Hubs."
+      roz_enabled: "ROZ-Instanz-Karte anzeigen."
+      roz_name: "Titel der ROZ-Karte."
+      roz_tagline: "Unterzeile der ROZ-Karte."
+      roz_url: "URL des ROZ-Hubs."

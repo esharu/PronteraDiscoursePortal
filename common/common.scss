@@ -1,0 +1,134 @@
+/*
+ * Prontera Portal — homepage hero + instance cards.
+ *
+ * Relies on the brand tokens (--p-*) declared by the parent "Prontera" theme.
+ * Falls back to literal hex if installed standalone, so it degrades safely.
+ */
+
+.prontera-portal {
+  max-width: 1120px;
+  margin: 0 auto var(--p-radius-lg, 13px);
+  padding: 0 1rem;
+}
+
+/* ------------------------------------------------------------------- hero */
+
+.prontera-portal__hero {
+  padding: 2.5rem 0 1.75rem;
+  text-align: center;
+}
+
+.prontera-portal__eyebrow {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 2.6px;
+  text-transform: uppercase;
+  color: var(--p-accent-light, #4fa396);
+  margin: 0 0 0.5rem;
+}
+
+.prontera-portal__title {
+  font-family: var(--font-display, "Cinzel", serif);
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  font-size: clamp(24px, 4.5vw, 38px);
+  color: var(--primary-high, #f4ead2);
+  margin: 0 0 0.75rem;
+}
+
+.prontera-portal__subtitle {
+  max-width: 46rem;
+  margin: 0 auto;
+  color: var(--primary-medium);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* ----------------------------------------------------------------- cards */
+
+.prontera-portal__cards {
+  display: grid;
+  gap: 13px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  margin-top: 0.5rem;
+}
+
+.prontera-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid var(--primary-low);
+  border-radius: var(--p-radius-lg, 13px);
+  background: var(--secondary);
+  color: var(--primary);
+  text-decoration: none;
+  transition: border-color 0.15s, transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.prontera-card[data-accent="banner-red"]:hover {
+  border-color: var(--p-banner-red, #c4453c);
+}
+.prontera-card[data-accent="gold"]:hover {
+  border-color: var(--p-gold, #d9a441);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .prontera-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(8, 16, 26, 0.35);
+  }
+}
+
+/* Instance seal — round badge with the letter, matching the hub emblem. */
+.prontera-card__seal {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display, "Cinzel", serif);
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--p-parchment, #f4ead2);
+  border: 2.5px solid var(--p-parchment, #f4ead2);
+}
+.prontera-card__seal[data-accent="banner-red"] {
+  background: var(--p-banner-red, #c4453c);
+}
+.prontera-card__seal[data-accent="gold"] {
+  background: var(--p-gold, #d9a441);
+}
+
+.prontera-card__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.prontera-card__name {
+  font-weight: 700;
+  font-size: 1rem;
+}
+.prontera-card__tagline {
+  font-size: 0.8rem;
+  color: var(--primary-medium);
+}
+
+.prontera-card__go {
+  margin-left: auto;
+  font-size: 1.2rem;
+  color: var(--primary-medium);
+  transition: transform 0.18s ease;
+}
+.prontera-card:hover .prontera-card__go {
+  transform: translateX(3px);
+  color: var(--primary-high);
+}
+
+@media (max-width: 767px) {
+  .prontera-portal__hero {
+    padding: 1.75rem 0 1.25rem;
+  }
+}

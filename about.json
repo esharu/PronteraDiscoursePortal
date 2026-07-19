@@ -1,0 +1,9 @@
+{
+  "name": "Prontera Portal",
+  "about_url": "https://prontera.info",
+  "license_url": "https://github.com/esharu/PronteraDiscoursePortal",
+  "authors": "Prontera",
+  "component": true,
+  "learn_more": "https://prontera.info",
+  "assets": {}
+}
