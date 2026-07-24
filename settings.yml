@@ -9,12 +9,12 @@ portal_enabled:
 
 hero_eyebrow:
   type: string
-  default: "Prontera · Ragnarok Online Hub"
+  default: "The Prontera.info Network"
   description: "Small uppercase kicker above the hero title."
 
 hero_title:
   type: string
-  default: "Every Ragnarok world, one home."
+  default: "Your Ragnarok Online home base."
   description: "Main hero headline (Cinzel)."
 
 hero_subtitle:
