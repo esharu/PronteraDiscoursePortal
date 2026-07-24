@@ -30,13 +30,13 @@ export default class PronteraPortal extends Component {
   }
 
   get ctaLabel() {
-    return settings.hero_cta_label;
+    return (settings.hero_cta_label || "").trim();
   }
   get ctaUrl() {
     return settings.hero_cta_url || "/latest";
   }
   get ctaSecondaryLabel() {
-    return settings.hero_cta_secondary_label;
+    return (settings.hero_cta_secondary_label || "").trim();
   }
   get ctaSecondaryUrl() {
     return settings.hero_cta_secondary_url || "/categories";
