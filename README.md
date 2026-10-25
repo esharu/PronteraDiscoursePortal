@@ -8,6 +8,9 @@ safely on its own.
 
 - Renders only on the site homepage (`/`) and only while `portal_enabled` is on.
 - Injected above the discovery list via the `above-main-container` outlet.
+- Each instance card shows the hub's live database size and latest news,
+  fetched from the hub's public `/api/portal/feed` (cached, CORS-open). If a
+  hub is down the card keeps its static copy.
 - All copy and both instance cards (name, tagline, URL, enable/disable) are
   theme settings — see `settings.yml`. No code changes needed to retune the
   homepage.

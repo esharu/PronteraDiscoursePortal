@@ -7,6 +7,11 @@ portal_enabled:
   default: true
   description: "Render the portal hero and instance cards at the top of the homepage."
 
+hide_hero_for_members:
+  type: bool
+  default: false
+  description: "Hide the hero and cards for signed-in members, so regulars land straight on the topic list."
+
 hero_eyebrow:
   type: string
   default: "The Prontera.info Network"
@@ -59,7 +64,7 @@ ro3_tagline:
 ro3_url:
   type: string
   default: "https://ro3.prontera.info"
-  description: "RO3 hub URL."
+  description: "RO3 hub URL. Its /api/portal/feed supplies the live database size and latest news on the card."
 
 roz_enabled:
   type: bool
@@ -71,9 +76,9 @@ roz_name:
   description: "ROZ card title."
 roz_tagline:
   type: string
-  default: "Ragnarok Online Zero"
-  description: "ROZ card subline."
+  default: "Ragnarok Zero"
+  description: "ROZ card subline. Keep 'Ragnarok Zero' contiguous (hub SEO rule)."
 roz_url:
   type: string
   default: "https://roz.prontera.info"
-  description: "ROZ hub URL."
+  description: "ROZ hub URL. Its /api/portal/feed supplies the live database size and latest news on the card."
