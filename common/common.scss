@@ -24,7 +24,9 @@
       color-mix(in srgb, var(--p-verdigris, #37877b) 26%, transparent),
       transparent 60%
     ),
-    linear-gradient(180deg, var(--p-midnight, #1d2d3f), var(--secondary, #16232f));
+    /* Fixed dark, not --secondary: the hero copy is light ink in both
+       schemes, so the band must stay dark under the parchment scheme too. */
+    linear-gradient(180deg, var(--p-midnight, #1d2d3f), #16232f);
   border-bottom: 1px solid var(--primary-low);
   overflow: hidden;
 }
@@ -92,7 +94,11 @@
   margin-top: 1.5rem;
 }
 
-.prontera-portal__btn {
+/* Every state spelled out incl. :visited — core's `a:visited` rule
+   (0,1,1) otherwise beats the single-class button colour and turned the
+   primary label accent-on-accent, i.e. invisible, once /latest was visited. */
+.prontera-portal__btn,
+.prontera-portal__btn:visited {
   display: inline-flex;
   align-items: center;
   padding: 10px 20px;
@@ -109,10 +115,12 @@
   border-color: var(--p-accent-light, #4fa396);
   color: #fff;
 }
-.prontera-portal__btn--primary {
+.prontera-portal__btn--primary,
+.prontera-portal__btn--primary:visited,
+.prontera-portal__btn--primary:hover {
   background: var(--p-accent, #37877b);
   border-color: var(--p-accent, #37877b);
-  color: #fff;
+  color: var(--p-on-accent, #fff);
 }
 .prontera-portal__btn--primary:hover {
   background: var(--p-accent-light, #4fa396);
@@ -139,15 +147,27 @@
 
 .prontera-card {
   display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 16px;
+  flex-direction: column;
   border: 1px solid var(--primary-low);
   border-radius: var(--p-radius-lg, 13px);
   background: var(--secondary);
   color: var(--primary);
-  text-decoration: none;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(8, 16, 26, 0.3), inset 0 1px 0 rgba(244, 234, 210, 0.08);
   transition: border-color 0.15s, transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.prontera-card__main,
+.prontera-card__main:visited {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+  color: var(--primary);
+  text-decoration: none;
+}
+.prontera-card__main:hover {
+  text-decoration: none;
 }
 
 .prontera-card[data-accent="banner-red"]:hover {
@@ -197,7 +217,8 @@
 }
 .prontera-card__tagline {
   font-size: 0.8rem;
-  color: var(--primary-medium);
+  /* Not --primary-medium: on this scheme core derives it as gold. */
+  color: var(--p-dim, #c9bfa8);
 }
 
 .prontera-card__go {
@@ -206,6 +227,44 @@
   color: var(--primary-medium);
   transition: transform 0.18s ease;
 }
+.prontera-card__totals {
+  margin-top: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--p-dim, #c9bfa8);
+}
+
+/* Latest hub news, from the portal feed. */
+.prontera-card__news,
+.prontera-card__news:visited {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  padding: 10px 16px;
+  border-top: 1px solid var(--primary-low);
+  font-size: 0.8rem;
+  color: var(--primary);
+  text-decoration: none;
+}
+.prontera-card__news:hover {
+  background: var(--primary-very-low);
+  text-decoration: none;
+}
+.prontera-card__news-date {
+  flex: none;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--p-gold, #d9a441);
+}
+.prontera-card__news-title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .prontera-card:hover .prontera-card__go {
   transform: translateX(3px);
   color: var(--primary-high);

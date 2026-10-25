@@ -1,15 +1,92 @@
 import Component from "@glimmer/component";
+import { tracked } from "@glimmer/tracking";
 import { service } from "@ember/service";
 
 // `settings` is the theme-settings global injected by Discourse into theme JS.
 /* global settings */
 
+const numberFormat = new Intl.NumberFormat("en-US");
+const dateFormat = new Intl.DateTimeFormat("en-US", {
+  month: "short",
+  day: "numeric",
+});
+
+// Each hub publishes GET /api/portal/feed (esharu/printera,
+// server/api/portal/feed.get.ts): who it is, how big its database is and
+// its latest news — public, cached and CORS-open for exactly this component.
+async function loadFeed(hubUrl) {
+  const base = (hubUrl || "").replace(/\/+$/, "");
+  if (!base) {
+    return null;
+  }
+  try {
+    const response = await fetch(`${base}/api/portal/feed`, {
+      credentials: "omit",
+    });
+    return response.ok ? await response.json() : null;
+  } catch {
+    // A hub that is down must not take the forum homepage with it: the
+    // card keeps its static copy from the settings.
+    return null;
+  }
+}
+
+function totalsLine(totals) {
+  if (!totals) {
+    return null;
+  }
+  return [
+    [totals.mobs, "Monsters"],
+    [totals.items, "Items"],
+    [totals.cards, "Cards"],
+  ]
+    .filter(([n]) => Number.isFinite(n) && n > 0)
+    .map(([n, label]) => `${numberFormat.format(n)} ${label}`)
+    .join(" · ");
+}
+
+function latestNews(feed) {
+  const item = feed?.news?.[0];
+  if (!item) {
+    return null;
+  }
+  const date = new Date(item.created_at);
+  return {
+    title: item.title,
+    url: item.url,
+    date: Number.isNaN(date.getTime()) ? "" : dateFormat.format(date),
+  };
+}
+
 export default class PronteraPortal extends Component {
   @service router;
+  @service currentUser;
+
+  @tracked feeds = {};
+
+  constructor() {
+    super(...arguments);
+    if (settings.portal_enabled) {
+      this.loadFeeds();
+    }
+  }
+
+  async loadFeeds() {
+    const [ro3, roz] = await Promise.all([
+      settings.ro3_enabled ? loadFeed(settings.ro3_url) : null,
+      settings.roz_enabled ? loadFeed(settings.roz_url) : null,
+    ]);
+    if (!this.isDestroying && !this.isDestroyed) {
+      this.feeds = { ro3, roz };
+    }
+  }
 
   // Only render on the site homepage ("/"), and only when enabled.
   get show() {
     if (!settings.portal_enabled) {
+      return false;
+    }
+    if (settings.hide_hero_for_members && this.currentUser) {
       return false;
     }
     const url = this.router.currentURL || "/";
@@ -42,26 +119,28 @@ export default class PronteraPortal extends Component {
     return settings.hero_cta_secondary_url || "/categories";
   }
 
-  // Instance cards, driven entirely by settings so copy/links stay code-free.
+  // Instance cards: static copy from settings, enriched with the hub's live
+  // database size and latest news once its feed has answered.
   get instances() {
     const list = [];
+    const card = (key, seal, accent) => {
+      const feed = this.feeds[key];
+      return {
+        key,
+        name: settings[`${key}_name`],
+        tagline: settings[`${key}_tagline`],
+        url: settings[`${key}_url`],
+        seal,
+        accent,
+        totals: totalsLine(feed?.totals),
+        news: latestNews(feed),
+      };
+    };
     if (settings.ro3_enabled) {
-      list.push({
-        name: settings.ro3_name,
-        tagline: settings.ro3_tagline,
-        url: settings.ro3_url,
-        seal: "3",
-        accent: "banner-red",
-      });
+      list.push(card("ro3", "3", "banner-red"));
     }
     if (settings.roz_enabled) {
-      list.push({
-        name: settings.roz_name,
-        tagline: settings.roz_tagline,
-        url: settings.roz_url,
-        seal: "Z",
-        accent: "gold",
-      });
+      list.push(card("roz", "Z", "gold"));
     }
     return list;
   }
@@ -74,7 +153,7 @@ export default class PronteraPortal extends Component {
             {{#if this.showEmblem}}
               <svg
                 class="prontera-portal__emblem"
-                viewBox="0 0 120 122"
+                viewBox="0 0 120 136"
                 aria-hidden="true"
               >
                 <path
@@ -108,7 +187,10 @@ export default class PronteraPortal extends Component {
 
             <div class="prontera-portal__cta">
               {{#if this.ctaLabel}}
-                <a class="prontera-portal__btn prontera-portal__btn--primary" href={{this.ctaUrl}}>
+                <a
+                  class="prontera-portal__btn prontera-portal__btn--primary"
+                  href={{this.ctaUrl}}
+                >
                   {{this.ctaLabel}}
                 </a>
               {{/if}}
@@ -123,20 +205,27 @@ export default class PronteraPortal extends Component {
 
         <div class="prontera-portal__cards">
           {{#each this.instances as |inst|}}
-            <a
-              class="prontera-card"
-              data-accent={{inst.accent}}
-              href={{inst.url}}
-            >
-              <span class="prontera-card__seal" data-accent={{inst.accent}}>
-                {{inst.seal}}
-              </span>
-              <span class="prontera-card__text">
-                <span class="prontera-card__name">{{inst.name}}</span>
-                <span class="prontera-card__tagline">{{inst.tagline}}</span>
-              </span>
-              <span class="prontera-card__go" aria-hidden="true">→</span>
-            </a>
+            <div class="prontera-card" data-accent={{inst.accent}}>
+              <a class="prontera-card__main" href={{inst.url}}>
+                <span class="prontera-card__seal" data-accent={{inst.accent}}>
+                  {{inst.seal}}
+                </span>
+                <span class="prontera-card__text">
+                  <span class="prontera-card__name">{{inst.name}}</span>
+                  <span class="prontera-card__tagline">{{inst.tagline}}</span>
+                  {{#if inst.totals}}
+                    <span class="prontera-card__totals">{{inst.totals}}</span>
+                  {{/if}}
+                </span>
+                <span class="prontera-card__go" aria-hidden="true">→</span>
+              </a>
+              {{#if inst.news}}
+                <a class="prontera-card__news" href={{inst.news.url}}>
+                  <span class="prontera-card__news-date">{{inst.news.date}}</span>
+                  <span class="prontera-card__news-title">{{inst.news.title}}</span>
+                </a>
+              {{/if}}
+            </div>
           {{/each}}
         </div>
       </section>
