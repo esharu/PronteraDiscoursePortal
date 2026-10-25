@@ -17,7 +17,7 @@
 .prontera-portal__band {
   position: relative;
   margin-top: calc(-1 * var(--p-radius-lg, 13px));
-  padding: 3rem 1rem 2.5rem;
+  padding: 2.25rem 1rem 2.25rem;
   background:
     radial-gradient(
       120% 140% at 50% -20%,
@@ -51,8 +51,8 @@
 }
 
 .prontera-portal__emblem {
-  width: 76px;
-  height: 78px;
+  width: 60px;
+  height: 68px;
   display: block;
   margin: 0 auto 1rem;
   filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.35));
@@ -274,4 +274,254 @@
   .prontera-portal__hero {
     padding: 1.75rem 0 1.25rem;
   }
+}
+
+/* ------------------------------------------------------------ live section */
+/* prontera-home-live.gjs: latest topics + hub rail, under the cards. */
+
+/* The hero already greets and the header has search — core's welcome
+   banner would repeat both, so it goes while the live section is on. */
+body:has(.prontera-live) .welcome-banner {
+  display: none;
+}
+
+.prontera-live {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  max-width: 1120px;
+  margin: 18px auto 0;
+  padding: 0 1rem;
+  align-items: flex-start;
+}
+
+.prontera-live__main {
+  flex: 999 1 420px;
+  min-width: 0;
+  background: var(--secondary);
+  border: 1px solid var(--p-line, #31465c);
+  border-radius: var(--p-radius-lg, 13px);
+  box-shadow: 0 1px 2px rgba(8, 16, 26, 0.3), inset 0 1px 0 rgba(244, 234, 210, 0.08);
+  overflow: hidden;
+}
+
+.prontera-live__rail {
+  flex: 1 1 280px;
+  max-width: 340px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+@media (max-width: 767px) {
+  .prontera-live__rail {
+    max-width: none;
+  }
+}
+
+.prontera-live__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--p-line, #31465c);
+}
+.prontera-live__title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+.prontera-live__more,
+.prontera-live__more:visited {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--p-verdigris-light, #4fa396);
+}
+
+.prontera-live__topics {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.prontera-live__topic {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 48px 56px;
+  grid-template-areas:
+    "title num when"
+    "meta  num when";
+  column-gap: 8px;
+  row-gap: 3px;
+  align-items: center;
+  padding: 10px 16px;
+  border-bottom: 1px solid #263a4d;
+}
+.prontera-live__topic:last-child {
+  border-bottom: 0;
+}
+.prontera-live__topic.--unread {
+  background: rgba(244, 234, 210, 0.03);
+}
+.prontera-live__topic-title,
+.prontera-live__topic-title:visited {
+  grid-area: title;
+  font-weight: 600;
+  color: var(--title-color--read, #c9bfa8);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.prontera-live__topic.--unread .prontera-live__topic-title {
+  color: var(--title-color, #f4ead2);
+}
+.prontera-live__topic-meta {
+  grid-area: meta;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: var(--p-dim, #c9bfa8);
+}
+.prontera-live__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  flex: none;
+}
+.prontera-live__topic-num {
+  grid-area: num;
+  text-align: right;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+.prontera-live__topic-when {
+  grid-area: when;
+  text-align: right;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--p-gold, #d9a441);
+}
+
+.prontera-live__card {
+  background: var(--secondary);
+  border: 1px solid var(--p-line, #31465c);
+  border-radius: var(--p-radius-lg, 13px);
+  padding: 14px 16px;
+  box-shadow: 0 1px 2px rgba(8, 16, 26, 0.3), inset 0 1px 0 rgba(244, 234, 210, 0.08);
+}
+.prontera-live__kicker {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 8px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--p-faint, #94a2b8);
+}
+.prontera-live__day {
+  color: var(--p-gold-light, #e4ba66);
+}
+.prontera-live__seal {
+  width: 17px;
+  height: 17px;
+  border-radius: 999px;
+  display: inline-grid;
+  place-items: center;
+  font: 700 10px var(--font-display, "Cinzel", serif);
+  letter-spacing: 0;
+}
+.prontera-live__seal[data-game="roz"] {
+  background: var(--p-gold, #d9a441);
+  color: var(--p-midnight, #1d2d3f);
+}
+.prontera-live__seal[data-game="ro3"] {
+  background: var(--p-banner-red, #c4453c);
+  color: #fff;
+}
+.prontera-live__row {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0;
+  border-top: 1px solid #263a4d;
+}
+.prontera-live__row-title {
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+.prontera-live__row-meta {
+  font-size: 0.75rem;
+  color: var(--p-dim, #c9bfa8);
+}
+.prontera-live__clock {
+  margin-top: 2px;
+  font: 700 1.5rem var(--font-display, "Cinzel", serif);
+  letter-spacing: 1px;
+  color: var(--p-gold-light, #e4ba66);
+  font-variant-numeric: tabular-nums;
+}
+.prontera-live__clock.--open {
+  color: var(--p-verdigris-light, #4fa396);
+}
+
+.prontera-live__listing,
+.prontera-live__listing:visited {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 0;
+  border-top: 1px solid #263a4d;
+  color: var(--primary);
+  text-decoration: none;
+}
+.prontera-live__listing:hover {
+  text-decoration: none;
+}
+.prontera-live__art {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 7px;
+  background: #16232f;
+  border: 1px solid var(--p-line, #31465c);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.prontera-live__art img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+.prontera-live__listing-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.prontera-live__listing-name {
+  font-weight: 600;
+  font-size: 0.85rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.prontera-live__listing-meta {
+  font-size: 0.72rem;
+  color: var(--p-faint, #94a2b8);
+}
+.prontera-live__badge {
+  flex: none;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: #22344d;
+  color: #8fbbe8;
+}
+.prontera-live__badge[data-kind="wtb"] {
+  background: #3b3a35;
+  color: #e4ba66;
 }

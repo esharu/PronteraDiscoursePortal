@@ -20,3 +20,4 @@ de:
       hero_cta_url: "Link des primären Hero-Buttons."
       hero_cta_secondary_label: "Beschriftung des sekundären Hero-Buttons. Leer lassen zum Ausblenden."
       hero_cta_secondary_url: "Link des sekundären Hero-Buttons."
+      live_section_enabled: "Neueste Themen + Right now + Marketplace unter den Hub-Karten; blendet das Core-Willkommensbanner auf der Startseite aus."
