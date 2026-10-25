@@ -1,6 +1,7 @@
 import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
 import { service } from "@ember/service";
+import PronteraHomeLive from "./prontera-home-live";
 
 // `settings` is the theme-settings global injected by Discourse into theme JS.
 /* global settings */
@@ -91,6 +92,10 @@ export default class PronteraPortal extends Component {
     }
     const url = this.router.currentURL || "/";
     return url === "/" || url.startsWith("/?");
+  }
+
+  get showLive() {
+    return settings.live_section_enabled;
   }
 
   get showEmblem() {
@@ -228,6 +233,10 @@ export default class PronteraPortal extends Component {
             </div>
           {{/each}}
         </div>
+
+        {{#if this.showLive}}
+          <PronteraHomeLive @feeds={{this.feeds}} />
+        {{/if}}
       </section>
     {{/if}}
   </template>

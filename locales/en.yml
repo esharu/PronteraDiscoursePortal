@@ -20,3 +20,4 @@ en:
       hero_cta_url: "Primary hero button link."
       hero_cta_secondary_label: "Secondary hero button label. Leave empty to hide it."
       hero_cta_secondary_url: "Secondary hero button link."
+      live_section_enabled: "Latest topics + Right now + marketplace under the hub cards; hides the core welcome banner on the homepage."

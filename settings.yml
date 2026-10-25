@@ -12,6 +12,11 @@ hide_hero_for_members:
   default: false
   description: "Hide the hero and cards for signed-in members, so regulars land straight on the topic list."
 
+live_section_enabled:
+  type: bool
+  default: true
+  description: "Under the hub cards: the forum's latest topics beside a rail with each hub's 'Right now' (launch day, War of Emperium countdown, next release beat) and the newest marketplace listings. Also hides core's welcome banner on the homepage, which would repeat the hero."
+
 hero_eyebrow:
   type: string
   default: "The Prontera.info Network"
